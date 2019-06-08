@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="workfl",
-    version="0.1",
+    version="0.1.1",
     author="Adam Dullage",
     author_email="adam@dullage.com",
     description="A lightweight markup language for simple workflow diagrams.",
@@ -14,5 +14,4 @@ setup(
     url="https://github.com/Dullage/workfl",
     license="MIT",
     packages=["workfl"],
-    install_requires=[],
 )

@@ -44,8 +44,12 @@ mermaid = flow.to_mermaid()
 print(mermaid)
 ```
 
+## Syntax
+
+A full guide can be found here <https://workfl.ws/?help=true>.
+
 ## To Do
 
-* Link to full syntax description once complete.
+* Allow for connectionless nodes.
 * Test scripts.
 * Some characters cause problems with the mermaid export, this needs investigation.

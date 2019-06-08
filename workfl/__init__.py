@@ -192,7 +192,7 @@ class ws():
 
         to_node = "{}({})".format(to_node_id, to_node_label)
 
-        line = "  {} {} {}".format(from_node, connection, to_node)
+        line = "  {} {} {};".format(from_node, connection, to_node)
 
         return line
 
