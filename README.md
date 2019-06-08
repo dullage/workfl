@@ -20,7 +20,7 @@ C
 D
 ```
 
-![Example](docs/example.png)
+![Example](https://raw.githubusercontent.com/Dullage/workfl/master/docs/example.png)
 
 You can try it out for yourself at [workfl.ws](https://workfl.ws).
 
