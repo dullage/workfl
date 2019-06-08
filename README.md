@@ -1,3 +1,5 @@
+![PyPI](https://img.shields.io/pypi/v/workfl.svg)
+
 # workfl
 
 ***Workf**low Markup **L**anguage*
