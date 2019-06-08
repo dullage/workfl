@@ -184,7 +184,7 @@ class ws():
         to_node_label,
         connection_label=None,
     ):
-        from_node = "{}({})".format(from_node_id, from_node_label)
+        from_node = '{}("{}")'.format(from_node_id, from_node_label)
 
         connection = "-->"
         if connection_label:
