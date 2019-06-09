@@ -44,12 +44,19 @@ mermaid = flow.to_mermaid()
 print(mermaid)
 ```
 
+By default `to_mermaid()` will render a chart flowing from Top to Bottom. This can be changed by declaring a `direction` e.g. `to_mermaid(direction="LR")` (Left to Right). There are 4 options:
+
+| Option | Direction |
+| -- | -- |
+| TB | Top to Bottom (Default) |
+| BT | Bottom to Top |
+| LR | Left to Right |
+| RL | Right to Left |
+
 ## Syntax
 
 A full guide can be found here <https://workfl.ws/?help=true>.
 
 ## To Do
 
-* Allow for connectionless nodes.
 * Test scripts.
-* Some characters cause problems with the mermaid export, this needs investigation.

@@ -3,7 +3,7 @@ import re
 BLANK_LINE_RE = re.compile(r"\s*$")
 
 
-class ws():
+class ws:
     @classmethod
     def _escape(cls, string):
         string = string.replace("\#", "&hash!")
@@ -73,7 +73,11 @@ class ws():
         if id in self._nodes.keys():
             return id
         else:
-            self._nodes[id] = {"label": label, "description": description}
+            self._nodes[id] = {
+                "label": label,
+                "description": description,
+                "connection_ids": [],
+            }
 
         return id
 
@@ -101,6 +105,10 @@ class ws():
             "label": label,
             "description": description,
         }
+
+        self._nodes[from_node_id]["connection_ids"].append(connection_id)
+        self._nodes[to_node_id]["connection_ids"].append(connection_id)
+
         self._max_connection_id = connection_id
 
         return connection_id
@@ -178,21 +186,23 @@ class ws():
     @classmethod
     def _build_mermaid_line(
         cls,
-        from_node_id,
-        from_node_label,
-        to_node_id,
-        to_node_label,
+        node_id,
+        node_label,
+        to_node_id=None,
+        to_node_label=None,
         connection_label=None,
     ):
-        from_node = '{}("{}")'.format(from_node_id, from_node_label)
+        from_node = '{}("{}")'.format(node_id, node_label)
 
-        connection = "-->"
-        if connection_label:
+        connection = to_node = ""
+        if to_node_id and to_node_label:
+            connection = "-->"
+            to_node = '{}("{}")'.format(to_node_id, to_node_label)
+
+        if connection and connection_label:
             connection += '|"{}"|'.format(connection_label)
 
-        to_node = '{}("{}")'.format(to_node_id, to_node_label)
-
-        line = "  {} {} {};".format(from_node, connection, to_node)
+        line = "  {}{}{};".format(from_node, connection, to_node)
 
         return line
 
@@ -202,30 +212,31 @@ class ws():
             node["mermaid_id"] = new_id
             new_id += 1
 
-    def to_mermaid(self):
+    def to_mermaid(self, direction="TB"):
         self._generate_mermaid_ids()
 
-        mermaid = "graph TD\n"
+        direction = direction.upper()
+        if direction not in ["TB", "BT", "LR", "RL"]:
+            direction = "TB"
+
+        mermaid = "graph {}\n".format(direction)
+
+        # Add unconnected nodes
+        for id, node in self._nodes.items():
+            if not node["connection_ids"]:
+                mermaid += self._build_mermaid_line(id, node["label"])
+
+        # Add connected nodes
         for connection_id, connection in self._connections.items():
             from_node = self._nodes[connection["from_node_id"]]
             to_node = self._nodes[connection["to_node_id"]]
 
-            if from_node["label"]:
-                from_node_label = from_node["label"]
-            else:
-                from_node_label = connection["from_node_id"]
-
-            if to_node["label"]:
-                to_node_label = to_node["label"]
-            else:
-                to_node_label = connection["to_node_id"]
-
             mermaid += (
                 self._build_mermaid_line(
                     from_node["mermaid_id"],
-                    from_node_label,
+                    from_node["label"],
                     to_node["mermaid_id"],
-                    to_node_label,
+                    to_node["label"],
                     connection["label"],
                 )
                 + "\n"
