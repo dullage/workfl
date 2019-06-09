@@ -188,9 +188,9 @@ class ws():
 
         connection = "-->"
         if connection_label:
-            connection += "|{}|".format(connection_label)
+            connection += '|"{}"|'.format(connection_label)
 
-        to_node = "{}({})".format(to_node_id, to_node_label)
+        to_node = '{}("{}")'.format(to_node_id, to_node_label)
 
         line = "  {} {} {};".format(from_node, connection, to_node)
 
