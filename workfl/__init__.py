@@ -194,13 +194,13 @@ class ws:
     ):
         from_node = '{}("{}")'.format(node_id, node_label)
 
-        connection = to_node = ""
-        if to_node_id and to_node_label:
+        if to_node_id is not None and to_node_label is not None:
             connection = "-->"
             to_node = '{}("{}")'.format(to_node_id, to_node_label)
-
-        if connection and connection_label:
-            connection += '|"{}"|'.format(connection_label)
+            if connection_label is not None:
+                connection += '|"{}"|'.format(connection_label)
+        else:
+            connection = to_node = ""
 
         line = "  {}{}{};".format(from_node, connection, to_node)
 
