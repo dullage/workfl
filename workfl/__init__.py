@@ -222,9 +222,11 @@ class ws:
         mermaid = "graph {}\n".format(direction)
 
         # Add unconnected nodes
-        for id, node in self._nodes.items():
+        for node in self._nodes.values():
             if not node["connection_ids"]:
-                mermaid += self._build_mermaid_line(id, node["label"])
+                mermaid += self._build_mermaid_line(
+                    node["mermaid_id"], node["label"]
+                )
 
         # Add connected nodes
         for connection_id, connection in self._connections.items():

@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="workfl",
-    version="0.2.1",
+    version="19.6.15.0",  # calver YY.MM.DD.MICRO
     author="Adam Dullage",
     author_email="adam@dullage.com",
     description="A lightweight markup language for simple workflow diagrams.",
